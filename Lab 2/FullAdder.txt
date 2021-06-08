@@ -1,0 +1,36 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 22.03.2021 10:17:40
+// Design Name: 
+// Module Name: FullAdder
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FullAdder(input A, input B, input CI, output CO, output S);
+    not not_gate_1(not_A,A);
+    xor xor_gate_1(A_xor_B, A, B);
+    xor xor_gate_2(B_xor_CI, B, CI);
+    xnor xnor_gate_1(B_xnor_CI, B, CI);
+    and and_gate_1(A_and_B, A, B);
+    and and_gate_2(A_xor_B_and_CI, A_xor_B, CI);
+    and and_gate_3(A_and_B_xnor_CI, A, B_xnor_CI);
+    and and_gate_4(not_A_and_B_xor_CI, not_A, B_xor_CI);
+    or or_gate_1(CO, A_and_B, A_xor_B_and_CI);
+    or or_gate_2(S, A_and_B_xnor_CI, not_A_and_B_xor_CI);
+
+    
+endmodule
