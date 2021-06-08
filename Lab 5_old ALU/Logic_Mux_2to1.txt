@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 10:28:24
+// Design Name: 
+// Module Name: Logic_Mux_2to1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Logic_Mux_2to1(input [31:0] A, input [31:0] B, input S, output [31:0] LogicOut);
+  
+    assign LogicOut = S ? B : A;
+
+endmodule

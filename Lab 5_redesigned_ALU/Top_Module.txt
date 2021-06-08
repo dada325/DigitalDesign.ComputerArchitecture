@@ -1,0 +1,71 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10.05.2021 11:24:14
+// Design Name: 
+// Module Name: Top_Module
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Top_Module(input [31:0] a, b, input [3:0] aluop, output [31:0] result, output zero);
+
+    reg [31:0] unit_output;
+    reg zero_output;
+    wire [31:0] n1;
+    wire [31:0] n2;
+    wire [31:0] n3;
+    
+    assign result = unit_output;
+    assign zero = zero_output;
+    
+    subtraction_complement unit_1(  .aluop(aluop), .subtraction_complement(n3)  );
+    
+    Logic_Unit unit_2
+    (  .a(a), .b(b), .aluop(aluop), .result(n1)  );
+    
+    Arith_Unit unit_3
+    (  .a(a), .b(b), .subtraction_complement(n3), .aluop(aluop), .result(n2)  );
+    
+
+    always@(*)
+    
+    begin
+    
+    if (aluop[2] == 1)
+        unit_output = n1;
+        
+    else
+         unit_output = n2;
+    
+    
+    end
+    
+
+    always@(*)
+    
+    begin
+    
+    if (result == 32'b0)
+        zero_output = 1;
+        
+    else
+         zero_output = 0;
+    
+    
+    end
+
+    
+endmodule

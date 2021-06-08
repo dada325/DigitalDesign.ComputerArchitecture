@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 11:36:57
+// Design Name: 
+// Module Name: Result_Mux
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Result_Mux(input [31:0] A, input [31:0] B, input S, output [31:0] Result);
+  
+    assign Result = S ? B : A;
+
+endmodule

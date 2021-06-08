@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 10:20:19
+// Design Name: 
+// Module Name: Or_Module
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Or_Module(input [31:0] A, [31:0] B, output [31:0] OrOut);
+
+    assign OrOut = A | B;
+    
+endmodule

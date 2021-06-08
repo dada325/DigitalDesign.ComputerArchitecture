@@ -1,0 +1,96 @@
+`timescale 1ns / 1ps
+
+
+
+module FSM_test;
+
+	// Inputs
+   reg 	left;
+   reg 	right;
+   reg 	reset;
+
+   
+
+   // Outputs
+   wire LC;
+   wire LB;
+   wire LA;
+   wire RC;
+   wire RB;
+   wire RA;
+   
+   
+
+   // Test clock 
+   reg			clk; // -period 10 -waveform {0 5}
+
+   
+
+   // Vector and Error counts
+   reg [10:0]	vec_cnt;
+   
+
+   // Define an array called 'testvec' that is wide enough to hold the inputs:
+   //   left, right
+
+   	reg [1:0] testvec [0:2];
+   	
+
+   // The test clock generation
+   always				// process always triggers
+	begin
+		clk=1; #50;		// clk is 1 for 50 ns 
+		clk=0; #50;		// clk is 0 for 50 ns
+	end					// generate a 100 ns clock
+	
+
+   // Initialization
+	initial
+	begin
+	
+	reset = 1;
+	
+	#20;
+	reset = 0;
+		
+    $readmemb("testvectors_fsm_bin.mem", testvec);
+
+		// vec_cnt=0; // number of vectors
+	end
+   
+   
+   // Tests
+	always @ (posedge clk)		// trigger with the test clock
+	
+	begin
+		// Wait 500 ns, so that we can safely apply the inputs
+		#100;
+
+		// Assign the signals from the testvec array
+		{left, right}= testvec[0];
+		// vec_cnt = vec_cnt + 1;
+		
+/* Wait 500 ns, so that we can safely apply the inputs
+		#500;
+
+		// Assign the signals from the testvec array
+		{left, right}= testvec[vec_cnt];
+		vec_cnt = vec_cnt + 1; */
+		
+		/* Wait 500 ns, so that we can safely apply the inputs
+		#500;
+
+		// Assign the signals from the testvec array
+		{left, right}= testvec[vec_cnt]; */
+			
+			// Terminate simulation
+			
+		#500;
+			$finish;
+		end
+   
+   FSM simulation_2
+   (  .left(left), .right(right), .reset(reset), .clk(clk), .LA(LA), .LB(LB), .LC(LC), .RA(RA), .RB(RB), .RC(RC)  );
+   
+   
+endmodule

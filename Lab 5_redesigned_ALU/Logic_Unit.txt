@@ -1,0 +1,53 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10.05.2021 11:20:40
+// Design Name: 
+// Module Name: Logic_Unit
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Logic_Unit(input [31:0] a, b, input [3:0] aluop, output [31:0] result);
+    
+    reg [31:0] logic_result;
+    
+    assign result = logic_result;
+    
+    always@(*)
+    
+    begin
+    
+    case(aluop)
+    
+    4'b0100:
+        logic_result = a & b;
+    4'b0101:
+        logic_result = a | b;
+    4'b0110:
+        logic_result = a ^ b;
+    4'b0111:
+        logic_result = ~(a | b);
+    default:
+        logic_result = a & b;
+    
+    endcase
+    
+    end
+
+    
+
+    
+endmodule

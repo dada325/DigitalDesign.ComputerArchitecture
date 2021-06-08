@@ -1,0 +1,801 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2021 08:30:13
+// Design Name: 
+// Module Name: FSM
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FSM(input clk, clk_2, reset, left, right, output reg LA, LB, LC, RA, RB, RC);
+
+    reg [5:0] state_p, state_n;
+    
+    parameter S0 = 6'b000000;
+    parameter S1 = 6'b000001;
+    parameter S2 = 6'b000010;
+    parameter S3 = 6'b000011;
+    parameter S4 = 6'b000100;
+    parameter S5 = 6'b000101;
+    parameter S6 = 6'b000110;
+    parameter S7 = 6'b000111;
+    parameter S8 = 6'b001000;
+    parameter S9 = 6'b001001;
+    parameter S10 = 6'b001010;
+    parameter S11 = 6'b001011;
+    parameter S12 = 6'b001100;
+    parameter S13 = 6'b001101;
+    parameter S14 = 6'b001110;
+    parameter S15 = 6'b001111;
+    parameter S16 = 6'b010000;
+    parameter S17 = 6'b010001;
+    parameter S18 = 6'b010010;
+    parameter S19 = 6'b010011;
+    parameter S20 = 6'b010100;
+    parameter S21 = 6'b010101;
+    parameter S22 = 6'b010110;
+    parameter S23 = 6'b010111;
+    parameter S24 = 6'b011000;
+    parameter S25 = 6'b011001;
+    parameter S26 = 6'b011010;
+    parameter S27 = 6'b011011;
+    parameter S28 = 6'b011100;
+    parameter S29 = 6'b011101;
+    parameter S30 = 6'b011110;
+    parameter S31 = 6'b011111;
+    parameter S32 = 6'b100000;
+    parameter S33 = 6'b100001;
+    parameter S34 = 6'b100010;
+    parameter S35 = 6'b100011;
+    parameter S36 = 6'b100100;
+    parameter S37 = 6'b100101;
+    parameter S38 = 6'b100110;
+    parameter S39 = 6'b100111;
+    parameter S40 = 6'b101000;
+    parameter S41 = 6'b101001;
+    parameter S42 = 6'b101010;
+    parameter S43 = 6'b101011;
+    parameter S44 = 6'b101100;
+    parameter S45 = 6'b101101;
+    
+
+    //state register
+    
+    always @ (posedge clk, posedge reset)
+        
+        if (reset) state_p <= S0;
+        else state_p <= state_n;
+        
+    //next state logic
+        
+    always @ (*)
+    
+        case (state_p)
+            
+            S0: if (left & ~right)
+                    state_n = S1;
+                else if (right & ~left)
+                    state_n = S16;
+                else if (left & right)
+                    state_n = S31;
+                else state_n = S0;
+                
+            S1:     state_n = S2;
+            S2:     state_n = S3;
+            S3:     state_n = S4;
+            S4:     state_n = S5;
+            S5:     state_n = S6;
+            S6:     state_n = S7;
+            S7:     state_n = S8;
+            S8:     state_n = S9;
+            S9:     state_n = S10;
+            S10:     state_n = S11;
+            S11:     state_n = S12;
+            S12:     state_n = S13;
+            S13:     state_n = S14;
+            S14:     state_n = S15;
+            S15:     state_n = S0;
+            
+            S16:     state_n = S17;
+            S17:     state_n = S18;
+            S18:     state_n = S19;
+            S20:     state_n = S21;
+            S21:     state_n = S21;
+            S22:     state_n = S23;
+            S23:     state_n = S24;
+            S24:     state_n = S25;
+            S25:     state_n = S26;
+            S26:     state_n = S27;
+            S27:     state_n = S28;
+            S28:     state_n = S29;
+            S29:     state_n = S30;
+            S30:     state_n = S0;
+            
+            S31:     state_n = S32;
+            S32:     state_n = S33;
+            S33:     state_n = S34;
+            S34:     state_n = S35;
+            S35:     state_n = S36;
+            S36:     state_n = S37;
+            S37:     state_n = S38;
+            S38:     state_n = S39;
+            S39:     state_n = S40;
+            S40:     state_n = S41;
+            S41:     state_n = S42;
+            S42:     state_n = S43;
+            S43:     state_n = S44;
+            S44:     state_n = S45;
+            S45:     state_n = S0;
+            
+            default: state_n = S0;
+            
+            endcase
+            
+            
+    //output logic
+
+reg [7:0] counter =0;
+
+always@(posedge clk_2) begin
+
+    if (counter < 100) counter <= counter + 1;
+    else counter <= 0;
+       
+ end
+ 
+ 
+always@(*)
+
+
+    if (state_p == S0) begin
+        
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S1) begin
+        
+        LA <= (counter < 20) ? 1:0;
+        LB <= 0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S2) begin
+        
+        LA <= (counter < 40) ? 1:0;
+        LB <= 0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end 
+    
+    else if (state_p == S3) begin
+        
+        LA <= (counter < 60) ? 1:0;
+        LB <= 0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end 
+    
+     else if (state_p == S4) begin
+        
+        LA <= (counter < 80) ? 1:0;
+        LB <= 0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end  
+    
+     else if (state_p == S5) begin
+        
+        LA <= 1;
+        LB <= 0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S6) begin
+        
+        LA <= 1;
+        LB <= (counter < 20) ? 1:0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S7) begin
+        
+        LA <= 1;
+        LB <= (counter < 40) ? 1:0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S8) begin
+        
+        LA <= 1;
+        LB <= (counter < 60) ? 1:0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S9) begin
+        
+        LA <= 1;
+        LB <= (counter < 80) ? 1:0;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S10) begin
+        
+        LA <= 1;
+        LB <= 1;
+        LC <= 0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S11) begin
+        
+        LA <= 1;
+        LB <= 1;
+        LC <= (counter < 20) ? 1:0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S12) begin
+        
+        LA <= 1;
+        LB <= 1;
+        LC <= (counter < 40) ? 1:0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S13) begin
+        
+        LA <= 1;
+        LB <= 1;
+        LC <= (counter < 60) ? 1:0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S14) begin
+        
+        LA <= 1;
+        LB <= 1;
+        LC <= (counter < 80) ? 1:0;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S15) begin
+        
+        LA <= 1;
+        LB <= 1;
+        LC <= 1;
+        RA <= 0;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S16) begin
+        
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+        RA <= (counter < 20) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+        
+    
+    end
+    
+    else if (state_p == S17) begin
+        
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+        RA <= (counter < 40) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+        
+    
+    
+    end 
+    
+    else if (state_p == S18) begin
+        
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+        RA <= (counter < 60) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+    
+    end 
+    
+     else if (state_p == S19) begin
+        
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+        RA <= (counter < 80) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+    
+    end  
+    
+     else if (state_p == S20) begin
+        
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+        RA <= 1;
+        RB <= 0;
+        RC <= 0;
+    
+    end
+    
+    else if (state_p == S21) begin
+        
+        RA <= 1;
+        RB <= (counter < 20) ? 1:0;
+        RC <= 0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S22) begin
+        
+        RA <= 1;
+        RB <= (counter < 40) ? 1:0;
+        RC <= 0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S23) begin
+        
+        RA <= 1;
+        RB <= (counter < 60) ? 1:0;
+        RC <= 0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S24) begin
+        
+        RA <= 1;
+        RB <= (counter < 80) ? 1:0;
+        RC <= 0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S25) begin
+        
+        RA <= 1;
+        RB <= 1;
+        RC <= 0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S26) begin
+        
+        RA <= 1;
+        RB <= 1;
+        RC <= (counter < 20) ? 1:0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S27) begin
+        
+        RA <= 1;
+        RB <= 1;
+        RC <= (counter < 40) ? 1:0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S28) begin
+        
+        RA <= 1;
+        RB <= 1;
+        RC <= (counter < 60) ? 1:0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S29) begin
+        
+        RA <= 1;
+        RB <= 1;
+        RC <= (counter < 80) ? 1:0;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S30) begin
+        
+        RA <= 1;
+        RB <= 1;
+        RC <= 1;
+        LA <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S31) begin
+        
+        RA <= (counter < 20) ? 1:0;
+        LA <= (counter < 20) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end
+    
+    else if (state_p == S32) begin
+        
+        RA <= (counter < 40) ? 1:0;
+        LA <= (counter < 40) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end 
+    
+    else if (state_p == S33) begin
+        
+        RA <= (counter < 60) ? 1:0;
+        LA <= (counter < 60) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end 
+    
+     else if (state_p == S34) begin
+        
+        RA <= (counter < 80) ? 1:0;
+        LA <= (counter < 80) ? 1:0;
+        RB <= 0;
+        RC <= 0;
+        LB <= 0;
+        LC <= 0;
+    
+    end  
+    
+     else if (state_p == S35) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 0;
+        RC <= 0;
+        LB <= 0;
+        LC <= 0;
+        
+     end
+    
+    else if (state_p == S36) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= (counter < 20) ? 1:0;
+        LB <= (counter < 20) ? 1:0;
+        RC <= 0;
+        LC <= 0;
+           
+    end
+    
+    else if (state_p == S37) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= (counter < 40) ? 1:0;
+        LB <= (counter < 40) ? 1:0;
+        RC <= 0;
+        LC <= 0;
+        
+    end
+    
+    else if (state_p == S38) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= (counter < 60) ? 1:0;
+        LB <= (counter < 60) ? 1:0;
+        RC <= 0;
+        LC <= 0;
+        
+    end
+    
+    else if (state_p == S39) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= (counter < 80) ? 1:0;
+        LB <= (counter < 80) ? 1:0;
+        RC <= 0;
+        LC <= 0;
+        
+    end
+    
+    else if (state_p == S40) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 1;
+        LB <= 1;
+        RC <= 0;
+        LC <= 0;
+        
+    end
+    
+    else if (state_p == S41) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 1;
+        LB <= 1;
+        RC <= (counter < 20) ? 1:0;
+        LC <= (counter < 20) ? 1:0;
+        
+    end
+    
+    else if (state_p == S42) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 1;
+        LB <= 1;
+        RC <= (counter < 40) ? 1:0;
+        LC <= (counter < 40) ? 1:0;
+        
+    end
+    
+    else if (state_p == S43) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 1;
+        LB <= 1;
+        RC <= (counter < 60) ? 1:0;
+        LC <= (counter < 60) ? 1:0;
+        
+    end
+    
+    else if (state_p == S44) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 1;
+        LB <= 1;
+        RC <= (counter < 80) ? 1:0;
+        LC <= (counter < 80) ? 1:0;
+        
+    end    
+    
+    else if (state_p == S45) begin
+        
+        RA <= 1;
+        LA <= 1;
+        RB <= 1;
+        LB <= 1;
+        RC <= 1;
+        LC <= 1;
+        
+    end
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+   /* if (counter < 20) begin
+    
+        LA <= (state_p == S1 | state_p == S31) ? 1:0;
+        LB <= (state_p == S6 | state_p == S36) ? 1:0;
+        LC <= (state_p == S11 | state_p == S41) ? 1:0;
+        RA <= (state_p == S16 | state_p == S31) ? 1:0;
+        RB <= (state_p == S21 | state_p == S36) ? 1:0;
+        RC <= (state_p == S26 | state_p == S41) ? 1:0;
+        
+    end
+    
+    
+    
+    else if (counter < 40) begin
+    
+        LA <= (state_p == S2 | state_p == S32) ? 1:0;
+        LB <= (state_p == S7 | state_p == S37) ? 1:0;
+        LC <= (state_p == S12 | state_p == S42) ? 1:0;
+        RA <= (state_p == S17 | state_p == S32) ? 1:0;
+        RB <= (state_p == S22 | state_p == S37) ? 1:0;
+        RC <= (state_p == S27 | state_p == S42) ? 1:0;
+        
+    end    
+    
+    else if (counter < 60) begin
+    
+        LA <= (state_p == S3 | state_p == S33) ? 1:0;
+        LB <= (state_p == S8 | state_p == S38) ? 1:0;
+        LC <= (state_p == S13 | state_p == S43) ? 1:0;
+        RA <= (state_p == S18 | state_p == S33) ? 1:0;
+        RB <= (state_p == S23 | state_p == S38) ? 1:0;
+        RC <= (state_p == S28 | state_p == S43) ? 1:0;
+    
+    end
+    
+    else if (counter < 80) begin
+    
+        LA <= (state_p == S4 | state_p == S34) ? 1:0;
+        LB <= (state_p == S9 | state_p == S39) ? 1:0;
+        LC <= (state_p == S14 | state_p == S44) ? 1:0;
+        RA <= (state_p == S19 | state_p == S34) ? 1:0;
+        RB <= (state_p == S24 | state_p == S39) ? 1:0;
+        RC <= (state_p == S29 | state_p == S44) ? 1:0;
+            
+    end
+    
+    else if (counter < 100) begin
+    
+        LA <= (state_p == S5 | state_p == S6 | state_p == S7 | state_p == S8 | state_p == S9 
+        | state_p == S10 | state_p == S11 | state_p == S12 | state_p == S13 | state_p == S14 
+        | state_p == S15 | state_p == S35 | state_p == S36 | state_p == S37 | state_p == S38 
+        | state_p == S39 | state_p == S40 | state_p == S41 | state_p == S42 | state_p == S43 
+        | state_p == S44 | state_p == S45) ? 1:0;
+        
+        LB <= (state_p == S10 | state_p == S11 | state_p == S12 | state_p == S13 
+        | state_p == S14 | state_p == S15 | state_p == S40 | state_p == S41 | state_p == S42 | state_p == S43 
+        | state_p == S44 | state_p == S45) ? 1:0;
+        
+        LC <= (state_p == S15 | state_p == S45) ? 1:0;
+        
+        RA <= (state_p == S20 | state_p == S21 | state_p == S22 | state_p == S23 | state_p == S24 
+        | state_p == S25 | state_p == S26 | state_p == S27 | state_p == S28 
+        | state_p == S29 | state_p == S30 | state_p == S35 | state_p == S36 | state_p == S37 | state_p == S38 
+        | state_p == S39 | state_p == S40 | state_p == S41 | state_p == S42 | state_p == S43 
+        | state_p == S44 | state_p == S45) ? 1:0;
+        
+        RB <= (state_p == S25 | state_p == S26 | state_p == S27 | state_p == S28 
+        | state_p == S29 | state_p == S30 | state_p == S40 | state_p == S41 | state_p == S42 | state_p == S43 
+        | state_p == S44 | state_p == S45) ? 1:0;
+        
+        RC <= (state_p == S30 | state_p == S45) ? 1:0;
+        
+    end
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+assign LA = (counter < 20 & state_p == S1) ? 1:0;
+    assign LA = (counter < 40 & state_p == S2) ? 1:0;
+    assign LA = (counter < 60 & state_p == S3) ? 1:0;
+    assign LA = (counter < 80 & state_p == S4) ? 1:0;
+    assign LA = 
+    (state_p == S5 | state_p == S6 | state_p == S7 | state_p == S8 | state_p == S9 | state_p == S10 
+    | state_p == S11 | state_p == S12 | state_p == S13 | state_p == S14 | state_p == S15) ? 1:0;
+    
+    assign LB = (counter < 20 & state_p == S6) ? 1:0;
+    assign LB = (counter < 40 & state_p == S7) ? 1:0;
+    assign LB = (counter < 60 & state_p == S8) ? 1:0;
+    assign LB = (counter < 80 & state_p == S9) ? 1:0;
+    assign LB = 
+    (state_p == S10 | state_p == S11 | state_p == S12 
+    | state_p == S13 | state_p == S14 | state_p == S15) ? 1:0;
+    
+    assign LC = (counter < 20 & state_p == S11) ? 1:0;
+    assign LC = (counter < 40 & state_p == S12) ? 1:0;
+    assign LC = (counter < 60 & state_p == S13) ? 1:0;
+    assign LC = (counter < 80 & state_p == S14) ? 1:0;
+    assign LC = 
+    (state_p == S15) ? 1:0;
+    
+    assign RA = (counter < 20 & state_p == S16) ? 1:0;
+    assign RA = (counter < 40 & state_p == S17) ? 1:0;
+    assign RA = (counter < 60 & state_p == S18) ? 1:0;
+    assign RA = (counter < 80 & state_p == S19) ? 1:0;
+    assign RA = 
+    (state_p == S20 | state_p == S21 | state_p == S22 | state_p == S23 | state_p == S24 | state_p == S25 
+    | state_p == S26 | state_p == S27 | state_p == S28 | state_p == S29 | state_p == S30) ? 1:0;
+    
+    assign RB = (counter < 20 & state_p == S21) ? 1:0;
+    assign RB = (counter < 40 & state_p == S22) ? 1:0;
+    assign RB = (counter < 60 & state_p == S23) ? 1:0;
+    assign RB = (counter < 80 & state_p == S24) ? 1:0;
+    assign RB = 
+    (state_p == S25 | state_p == S26 | state_p == S27 
+    | state_p == S28 | state_p == S29 | state_p == S30) ? 1:0;
+    
+    assign RC = (counter < 20 & state_p == S26) ? 1:0;
+    assign RC = (counter < 40 & state_p == S27) ? 1:0;
+    assign RC = (counter < 60 & state_p == S28) ? 1:0;
+    assign RC = (counter < 80 & state_p == S29) ? 1:0;
+    assign RC = 
+    (state_p == S30) ? 1:0;*/
+
+endmodule

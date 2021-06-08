@@ -1,0 +1,45 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: LogicOut: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 10:26:36
+// Design Name: 
+// Module Name: Logic_Mux
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Logic_Mux_4to1(input [31:0] D1, input [31:0] D2, input [31:0] D3, input [31:0] D4, input S1, input S2, output [31:0] LogicOut);
+
+    wire [31:0] n1;
+    wire [31:0] n2;
+
+    Logic_Mux_2to1 Mux_1   (  .A(D1),
+                              .B(D2),
+                              .S(S1),
+                              .LogicOut(n1)  );
+    
+    Logic_Mux_2to1 Mux_2   (  .A(D3),
+                              .B(D4),
+                              .S(S1),
+                              .LogicOut(n2)  );
+    
+    Logic_Mux_2to1 Mux_3   (  .A(n1),
+                              .B(n2),
+                              .S(S2),
+                              .LogicOut(LogicOut)  );
+                              
+endmodule
+
+

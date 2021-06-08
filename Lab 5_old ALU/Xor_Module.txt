@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 10:21:32
+// Design Name: 
+// Module Name: Xor_Module
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Xor_Module(input [31:0] A, [31:0] B, output [31:0] XorOut);
+
+    assign XorOut = A ^ B;
+    
+endmodule

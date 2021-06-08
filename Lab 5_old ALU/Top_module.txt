@@ -1,0 +1,72 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 08:40:52
+// Design Name: 
+// Module Name: Top_module
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Top_module(input [31:0] A, [31:0] B, [0:3] AluOP, output [31:0] Result, output Zero);
+
+    wire [31:0] n1;
+    wire [31:0] n2;
+    wire [31:0] n3;
+    wire [31:0] n4;
+    wire [31:0] n5;
+    wire [31:0] n6;
+    wire [31:0] n7;
+    wire [31:0] n8;
+    wire [31:0] n9;
+    wire [31:0] n10;
+    wire [31:0] n11;
+
+//Arithmetic Part
+    Inverter Inverter(  .A(B), .Y(n1)  );
+    
+    Arithmetic_Mux_1 Arithmetic_Mux_1(  .A(B), .B(n1), .S(AluOP[1]), .Y(n2)  );
+    
+    single_bit_to_32bit single_bit_to_32bit(  .subtraction_complement_single_bit(AluOP[1]), .subtraction_complement_32bit(n3)  );
+    
+    Adder Adder(  .A(A), .B(n2), .subtraction_complement_32bit(n3), .AddOut(n4)  );
+    
+    Extend_Module Extend_Module(  .A(n4), .Y(n5)  );
+    
+    Arithmetic_Mux_2 Arithmetic_Mux_2(  .A(n4), .B(n5), .S(AluOP[3]), .ArithOut(n6)  );
+    
+    
+//Logic Part
+
+    And_Module And_Module(  .A(A), .B(B), .AndOut(n7)  );
+    
+    Or_Module Or_Module(  .A(A), .B(B), .OrOut(n8)  );
+    
+    Xor_Module Xor_Module(  .A(A), .B(B), .XorOut(n9)  );
+    
+    Nor_Module Nor_Module(  .A(A), .B(B), .NorOut(n10)  );
+    
+    Logic_Mux_4to1 Logic_Mux_4to1(  .D1(n7), .D2(n8), .D3(n9), .D4(n10), .S1(AluOP[0]), .S2(AluOP[1]), .LogicOut(n11)  );
+
+
+//Result
+
+    Result_Mux Result_Mux(  .A(n6), .B(n11), .S(AluOP[2]), .Result(Result)  );
+    
+    Create_Flag Create_Flag(  .Result(Result), .Zero(Zero)  );
+
+
+
+endmodule

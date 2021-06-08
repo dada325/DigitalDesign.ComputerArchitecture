@@ -1,0 +1,6 @@
+This function uses the original abs_diff function (from the helper file) three times.
+Once for each color difference. The diffferences are then added together.
+The main function would have to be changed to implement this function:
+We would assign the left blue values to the registers 0 to 20 and the right blue values to 24 to 44 and so on..
+Then a0, a1 get the values of the first color difference, a2, a3 those of the second.
+The diffference of the third color is assigned to temporary registers. In this case t0 and t7.

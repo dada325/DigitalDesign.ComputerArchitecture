@@ -1,0 +1,20 @@
+module Additional_top_module(input clk, reset, left, right, output LC, LB, LA, RC, RB, RA);
+
+    wire n1;
+    
+    clk_div divider (  .clk(clk),
+                       .rst(reset),
+                       .clk_en(n1)  );
+
+    FSM Moore_FSM (  .clk(n1),
+                     .reset(reset),
+                     .left(left),
+                     .right(right),
+                     .LC(LC),
+                     .LB(LB),
+                     .LA(LA),
+                     .RA(RA),
+                     .RB(RB),
+                     .RC(RC)  );
+    
+endmodule

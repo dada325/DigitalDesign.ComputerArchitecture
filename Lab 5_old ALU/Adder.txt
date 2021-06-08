@@ -1,0 +1,57 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 26.04.2021 10:36:49
+// Design Name: 
+// Module Name: Adder
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Adder(input [31:0] subtraction_complement_32bit, input [31:0] A, input [31:0] B, output [31:0] AddOut);
+    
+    
+    assign AddOut = A + B + subtraction_complement_32bit;
+
+endmodule    
+    
+    /* A = 00000011
+       B = 00000100
+       
+       A + B = 00000111
+       A - B = 10000001
+       
+       ~B =   11111011
+       10'1 = 00000001
+                        11
+       -B =(~B + 10'1) = 11111011
+                  +00000001
+                  =11111100
+                  
+       A + (-B) = 00000011
+                 +11111100
+                  11111111
+
+      
+       ~B = 11111011
+                     1 1
+       A + ~B = 00000011
+               +11111011
+               =11111100
+    
+    */
+    
+            
+

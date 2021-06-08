@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2021 10:01:11
+// Design Name: 
+// Module Name: Additional top module
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Additional_top_module(input clk, reset, left, right, output LC, LB, LA, RC, RB, RA);
+
+    wire n1;
+    
+    clk_div divider (  .clk(clk),
+                       .rst(reset),
+                       .clk_en(n1)  );
+
+    FSM Moore_FSM (  .clk(n1),
+                     .reset(reset),
+                     .left(left),
+                     .right(right),
+                     .LC(LC),
+                     .LB(LB),
+                     .LA(LA),
+                     .RA(RA),
+                     .RB(RB),
+                     .RC(RC)  );
+    
+endmodule

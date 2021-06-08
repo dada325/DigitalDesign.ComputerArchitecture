@@ -1,0 +1,2 @@
+For the Lab 5 report we used the old ALU from Lab 5 with the FourBitAdder from Lab 2.
+The results in the report would be different with the redesigned ALU.

@@ -1,0 +1,61 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10.05.2021 11:23:27
+// Design Name: 
+// Module Name: Arith_Unit
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Arith_Unit(input [31:0] a, b, subtraction_complement, input [3:0] aluop, output [31:0] result);
+
+    reg [31:0] arith_result;
+    reg [31:0] slt_result;
+    
+    assign result = arith_result;
+    
+    
+    always@(*)
+    
+    begin
+    
+    case(aluop)
+        
+        
+        4'b0000:
+        arith_result = a + b;
+        4'b0010:
+        arith_result = a + ~b + subtraction_complement;
+        default:
+        arith_result = a + ~b + subtraction_complement;
+        
+      
+    endcase
+    
+    if (aluop[3] == 1)
+        slt_result = arith_result;
+        if (slt_result[31] == 1) 
+        arith_result = 32'b1;
+        else if (slt_result[31] == 0)
+        arith_result = 32'b0;
+     else
+        arith_result = arith_result;
+    
+    
+    end
+
+ 
+endmodule

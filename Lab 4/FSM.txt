@@ -1,0 +1,60 @@
+module FSM(input clk, reset, left, right, output LC, LB, LA, RC, RB, RA);
+
+    reg [3:0] state_p, state_n;
+    
+    parameter S0 = 4'b0000;
+    parameter S1 = 4'b0001;
+    parameter S2 = 4'b0010;
+    parameter S3 = 4'b0011;
+    parameter S4 = 4'b0100;
+    parameter S5 = 4'b0101;
+    parameter S6 = 4'b0110;
+    parameter S7 = 4'b0111;
+    parameter S8 = 4'b1000;
+    parameter S9 = 4'b1001;
+    
+    //state register
+    
+    always @ (posedge clk, posedge reset)
+        
+        if (reset) state_p <= S0;
+        else state_p <= state_n;
+        
+    //next state logic
+        
+    always @ (*)
+    
+        case (state_p)
+            
+            S0: if (left & ~right)
+                    state_n = S1;
+                else if (right & ~left)
+                    state_n = S4;
+                else if (left & right)
+                    state_n = S7;
+                else state_n = S0;
+            S1:     state_n = S2;
+            S2:     state_n = S3;
+            S3:     state_n = S0;
+            S4:     state_n = S5;
+            S5:     state_n = S6;
+            S6:     state_n = S0;
+            S7:     state_n = S8;
+            S8:     state_n = S9;
+            S9:     state_n = S0;
+            default: state_n = S0;
+            
+            endcase
+            
+            
+    //output logic
+    
+    assign LC = (state_p == S3 | state_p == S9);
+    assign LB = (state_p == S2 | state_p == S3 | state_p == S8 | state_p == S9);
+    assign LA = (state_p == S1 | state_p == S2 | state_p == S3 | state_p == S7 | state_p == S8 | state_p == S9);
+    assign RA = (state_p == S4 | state_p == S5 | state_p == S6 | state_p == S7 | state_p == S8 | state_p == S9);
+    assign RB = (state_p == S5 | state_p == S6 | state_p == S8 | state_p == S9);
+    assign RC = (state_p == S6 | state_p == S9);
+
+
+endmodule

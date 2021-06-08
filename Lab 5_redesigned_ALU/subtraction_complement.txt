@@ -1,0 +1,29 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 14.05.2021 10:25:18
+// Design Name: 
+// Module Name: subtraction_complement
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module subtraction_complement(input [3:0] aluop, output [31:0] subtraction_complement);
+
+    assign subtraction_complement [0] = aluop[1];
+    
+    assign subtraction_complement [31:1] = 0;
+
+endmodule

@@ -1,0 +1,29 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 29.04.2021 10:20:35
+// Design Name: 
+// Module Name: single_bit_to_32bit
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module single_bit_to_32bit(input subtraction_complement_single_bit, output [31:0] subtraction_complement_32bit);
+
+    assign subtraction_complement_32bit [0] = subtraction_complement_single_bit;
+    
+    assign subtraction_complement_32bit [31:1] = 0;
+
+endmodule
