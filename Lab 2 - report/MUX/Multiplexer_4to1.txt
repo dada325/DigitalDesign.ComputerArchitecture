@@ -1,0 +1,21 @@
+module Multiplexer_4to1(input D1, input D2, input D3, input D4, input S1, input S2, output Y);
+
+    wire n1;
+    wire n2;
+
+    Multiplexer_2to1 MUX_1 (  .A(D1),
+                              .B(D2),
+                              .S(S1),
+                              .Y(n1)  );
+    
+    Multiplexer_2to1 MUX_2 (  .A(D3),
+                              .B(D4),
+                              .S(S1),
+                              .Y(n2)  );
+    
+    Multiplexer_2to1 MUX_3 (  .A(n1),
+                              .B(n2),
+                              .S(S2),
+                              .Y(Y)  );
+                              
+endmodule

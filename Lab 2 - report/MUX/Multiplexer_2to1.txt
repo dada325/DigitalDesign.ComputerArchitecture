@@ -1,0 +1,5 @@
+module Multiplexer_2to1(input A, input B, input S, output Y);
+    assign Y = A | (A & B) | (S & B) | (S & A & B);
+
+    
+endmodule
