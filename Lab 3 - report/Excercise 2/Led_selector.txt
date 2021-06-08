@@ -1,0 +1,8 @@
+module Led_selector(input [0:1] switch, output [0:3] AN);
+
+    assign AN[0] = ~switch[0] & switch[1] | switch[0];
+    assign AN[1] = switch[0] | ~switch[0] & ~switch[1];
+    assign AN[2] = ~switch[0] | switch[0] & switch[1];
+    assign AN[3] = ~switch[0] | switch[0] & ~switch[1];
+    
+endmodule

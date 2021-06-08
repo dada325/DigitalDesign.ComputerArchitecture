@@ -1,0 +1,18 @@
+Identical to lab 3 except:
+
+- add output [0:3] AN 
+			to Display
+
+- add 	assign AN[0] = 0;
+    	assign AN[1] = 1;
+    	assign AN[2] = 1;
+    	assign AN[3] = 1;
+			to Display
+
+
+- add 	set_property PACKAGE_PIN U2 [get_ports {AN[0]}]
+	set_property PACKAGE_PIN U4 [get_ports {AN[1]}]
+	set_property PACKAGE_PIN V4 [get_ports {AN[2]}]
+	set_property PACKAGE_PIN W4 [get_ports {AN[3]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {AN}]
+							to Constraints

@@ -1,0 +1,6 @@
+module Buffer(input A, output B);
+
+    assign A = B;
+
+
+endmodule
